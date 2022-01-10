@@ -28,6 +28,26 @@ var __toCommonJS = /* @__PURE__ */ ((cache) => {
     return cache && cache.get(module2) || (temp = __reExport(__markAsModule({}), module2, 1), cache && cache.set(module2, temp), temp);
   };
 })(typeof WeakMap !== "undefined" ? /* @__PURE__ */ new WeakMap() : 0);
+var __async = (__this, __arguments, generator) => {
+  return new Promise((resolve, reject) => {
+    var fulfilled = (value) => {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var rejected = (value) => {
+      try {
+        step(generator.throw(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+    step((generator = generator.apply(__this, __arguments)).next());
+  });
+};
 
 // node_modules/universalify/index.js
 var require_universalify = __commonJS({
@@ -3821,11 +3841,11 @@ Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
       command_1.issue("echo", enabled ? "on" : "off");
     }
     exports.setCommandEcho = setCommandEcho;
-    function setFailed(message) {
+    function setFailed2(message) {
       process.exitCode = ExitCode.Failure;
       error(message);
     }
-    exports.setFailed = setFailed;
+    exports.setFailed = setFailed2;
     function isDebug() {
       return process.env["RUNNER_DEBUG"] === "1";
     }
@@ -3896,8 +3916,14 @@ __export(src_exports, {
 var fs = __toESM(require_lib());
 var core = __toESM(require_core());
 function foo() {
-  const dir = core.getInput("dir");
-  fs.copy(dir, "./");
+  return __async(this, null, function* () {
+    try {
+      const dir = core.getInput("dir");
+      yield fs.copy(dir, "./");
+    } catch (e) {
+      core.setFailed(e.message);
+    }
+  });
 }
 module.exports = __toCommonJS(src_exports);
 // Annotate the CommonJS export names for ESM import in node:

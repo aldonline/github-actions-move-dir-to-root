@@ -1,6 +1,6 @@
 {
     "name": "github-actions-move-dir-to-root",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "scripts": {
         "build": "ts-node ./src/build.ts",
         "sandbox": "ts-node ./src/sandbox.ts"
