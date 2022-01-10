@@ -1,0 +1,10 @@
+name: 'Move Dir to Root'
+description: 'Move dir to root (usually after checkout)'
+inputs:
+  dir:
+    description: 'Path to dir'
+    required: true
+runs:
+  using: node12
+  main: dist/index.js
+  # post: dist/index.js
