@@ -3919,7 +3919,7 @@ function foo() {
   return __async(this, null, function* () {
     try {
       const dir = core.getInput("dir");
-      yield fs.copy(dir, "./");
+      yield fs.copy(dir, process.env["GITHUB_WORKSPACE"]);
     } catch (e) {
       core.setFailed(e.message);
     }

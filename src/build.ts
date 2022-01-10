@@ -1,12 +1,10 @@
 import * as esbuild from "esbuild"
 
-function build(){
-    esbuild.build({
+export async function build(){
+    await esbuild.build({
         entryPoints: ["./src/index.ts"],
         platform: 'node',
         bundle: true,
         outdir: './dist',
     })
 }
-
-build()
