@@ -25389,9 +25389,9 @@ function foo() {
   return __async(this, null, function* () {
     try {
       const dir = core.getInput("dir");
-      const src_glob = import_path.default.posix.resolve(dir, "**", "*");
+      const src_glob = import_path.default.posix.resolve(process.env["GITHUB_WORKSPACE"], dir, "**", "*");
       yield new Promise((res, rej) => {
-        cpx.copy(src_glob, process.env["GITHUB_WORKSPACE"], (err) => err ? rej(err) : res());
+        cpx.copy(src_glob, process.env["GITHUB_WORKSPACE"] + "/", (err) => err ? rej(err) : res());
       });
     } catch (e) {
       core.setFailed(e.message);
